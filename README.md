@@ -11,6 +11,7 @@ Files
 - `README.md`: This file, documenting the approach and challenges.
 
 Approach
+
 Q1: Joined `users_customuser` and `plans_plan` to count savings (`is_regular_savings = 1`) and investment (`is_a_fund = 1`) plans with positive `amount`, grouping by customer and filtering for those with both plan types.
 
 Q2: Calculated average transactions per month from `savings_savingsaccount`, using `transaction_date` for monthly grouping, and categorized customers based on transaction frequency.
@@ -22,6 +23,7 @@ Q4: Estimated CLV using `savings_savingsaccount`, calculating tenure with `trans
 
 
 Challenges
+
 - Q2 failed with `Error Code: 1054. Unknown column 's.type'`. Removed `WHERE LOWER(s.type) = 'savings'` as `savings_savingsaccount` lacks a `type` column.
 - Q4 output initially lacked `name` column; added `u.name` to match expected output (`customer_id`, `name`, `tenure_months`, `total_transactions`, `estimated_clv`).
 - Encountered `Error Code: 1054` for `u.signup_date`, `s.created_at`, and `p.created_at` in Q4. Used `MIN(s.transaction_date)` from `savings_savingsaccount` for `tenure_months`, which produced correct output.
